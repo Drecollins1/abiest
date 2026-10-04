@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand */
+  --color-leaf: #005210;      /* logo green */
+  --color-leaf-600: #0b6a22;
+  --color-canopy: #0a3315;    /* deep plantain-leaf green, hero + footer */
+  --color-canopy-900: #062410;
+  --color-sprout: #5cbf72;    /* logo green lifted for dark surfaces */
+  --color-gold: #f2b632;      /* the gold chip pouch */
+  --color-gold-100: #fdf1cf;
+  --color-dodo: #c2551f;      /* ripe plantain / "Spiced" sticker */
+  --color-peel: #fbf4dd;      /* unripe plantain flesh, flour panels */
+  --color-husk: #efe2cb;      /* honey beans panels */
+  --color-ink: #1b1d16;
+  --color-mute: #5f5b4f;
+  --color-line: #dcd3c1;
+  --color-mist: #f4f7f1;      /* dashboard background */
+
+  /* Storefront surfaces: warm paper, like a printed price list */
+  --color-paper: #f7f2e8;
+  --color-shelf: #ece3d1;     /* image tiles, shelf panels */
+  --color-card: #fffcf6;
+
+  --font-display: var(--font-bsd), "Arial Narrow", system-ui, sans-serif;
+  --font-sans: var(--font-fg), ui-sans-serif, system-ui, sans-serif;
+
+}
+
+@layer base {
+  html { -webkit-tap-highlight-color: transparent; }
+  body { @apply bg-paper text-ink font-sans antialiased; }
+  ::selection { background: var(--color-gold); color: var(--color-ink); }
+  :focus-visible { outline: 3px solid var(--color-gold); outline-offset: 2px; border-radius: 4px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+}
+
+/* Reusable component classes (Tailwind v4 custom utilities) */
+@utility display { @apply font-display font-extrabold leading-[.95]; }
+@utility btn { @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-[15px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50; }
+@utility btn-gold { @apply btn bg-gold text-ink hover:bg-[#e3a51f]; }
+@utility btn-leaf { @apply btn bg-leaf text-white hover:bg-leaf-600; }
+@utility btn-ghost-light { @apply btn border border-white/40 text-white hover:bg-white/10; }
+@utility btn-outline { @apply btn border border-ink/25 text-ink hover:border-ink; }
+@utility link { @apply font-semibold underline decoration-ink/30 underline-offset-4 hover:decoration-current; }
+@utility field { @apply w-full rounded-md border border-line bg-card px-3.5 py-3 text-[15px] placeholder:text-mute/60 focus:border-leaf focus:ring-2 focus:ring-leaf/15 focus:outline-none; }
+@utility label { @apply mb-1.5 block text-sm font-semibold text-ink; }
+@utility container-x { @apply mx-auto w-full max-w-[1200px] px-4 sm:px-8; }
+@utility kicker { @apply text-[13px] font-semibold uppercase tracking-[.08em] text-mute; }
