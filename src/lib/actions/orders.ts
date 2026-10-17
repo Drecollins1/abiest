@@ -30,7 +30,7 @@ export async function placeOrder(input: PlaceOrderInput): Promise<PlaceOrderResu
   if (!parsed.success) return { ok: false, error: parsed.error.issues[0]?.message ?? "Check your details." };
   const data = parsed.data;
   if (data.fulfilment === "DELIVERY" && (!data.address || !data.city)) {
-    return { ok: false, error: "Enter a delivery address and city, or choose pickup." };
+    return { ok: false, error: "Enter a delivery address and city." };
   }
 
   // Stock taken so far, so it can be put back if anything fails part-way.

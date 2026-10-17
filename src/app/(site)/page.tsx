@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { listProducts, priceRange, CATEGORY_LABEL, type ProductWithVariants } from "@/lib/catalog";
-import { formatNaira } from "@/lib/money";
+import { listProducts, type ProductWithVariants } from "@/lib/catalog";
 import { site, whatsappLink } from "@/lib/site";
 import { ProductCard } from "@/components/site/product-card";
 import { FoodLabel } from "@/components/site/food-label";
@@ -22,7 +21,9 @@ const STEPS = [
 export default async function HomePage() {
   const products = await listProducts();
   const byCat = (c: ProductWithVariants["category"]) => products.find((p) => p.category === c);
-  const shelf = [byCat("FLOUR"), byCat("CHIPS"), byCat("BEANS")].filter((p): p is ProductWithVariants => !!p);
+  const lineup = [byCat("FLOUR"), byCat("CHIPS"), byCat("BEANS")].filter((p): p is ProductWithVariants => !!p);
+  // One pack per category on the shelf (categories without a photo are skipped).
+  const shelf = lineup.filter((p) => p.images.length);
 
   return (
     <>
@@ -30,10 +31,10 @@ export default async function HomePage() {
       <section className="container-x grid items-center gap-10 py-10 sm:py-14 lg:grid-cols-[1fr_1.15fr] lg:gap-14 lg:py-20">
         <div>
           <h1 className="display text-[clamp(44px,6.2vw,78px)]">
-            Plantain chips, plantain flour and honey beans from Ile‑Ife.
+            Crispy plantain chips, ripe and unripe.
           </h1>
           <p className="mt-6 max-w-md text-lg leading-relaxed text-mute">
-            Processed and packed at our centre in Osun State. Short ingredient lists, sealed packs, and delivery or pickup across the state.
+            Sweet or savoury, sliced thin and fried until every bite snaps.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link href="/shop" className="btn-leaf px-7">Shop now</Link>
@@ -42,20 +43,20 @@ export default async function HomePage() {
           <p className="mt-10 text-sm text-mute">NAFDAC Reg. No. {site.nafdac}</p>
         </div>
 
-        {/* The range on a shelf, with shelf-edge price tags */}
+        {/* The range on a shelf */}
         {shelf.length > 0 && (
-          <div className="rounded-lg bg-shelf px-4 pt-10 sm:px-8 sm:pt-16">
-            <div className="grid grid-cols-3 items-end gap-3 sm:gap-6">
+          <div className="overflow-hidden rounded-lg bg-shelf px-4 pt-10 sm:px-8 sm:pt-16">
+            <div className="flex items-end justify-center gap-3 sm:gap-6">
               {shelf.map((p) => (
-                <Link key={p.id} href={`/shop/${p.slug}`} className="group block">
+                <Link key={p.id} href={`/shop/${p.slug}`} className="group block w-1/3">
                   <Image
                     src={p.images[0]}
                     alt={p.name}
-                    width={1200}
-                    height={1500}
+                    width={1000}
+                    height={1400}
                     priority
                     sizes="(min-width:1024px) 200px, 30vw"
-                    className={`mx-auto w-full origin-bottom transition-transform duration-300 group-hover:-translate-y-1.5 ${p.category === "CHIPS" ? "scale-[1.45]" : "scale-[1.3]"}`}
+                    className="mx-auto w-full origin-bottom scale-[1.1] transition-transform duration-300 group-hover:-translate-y-1.5"
                   />
                 </Link>
               ))}
@@ -64,26 +65,15 @@ export default async function HomePage() {
               <div className="h-3 bg-[#b8996a]" />
               <div className="h-1.5 bg-[#8c6e45]" />
             </div>
-            <div className="grid grid-cols-3 gap-3 py-4 sm:gap-6 sm:py-5">
-              {shelf.map((p) => {
-                const r = priceRange(p);
-                return (
-                  <Link key={p.id} href={`/shop/${p.slug}`} className="block border-l-4 border-leaf bg-card px-2.5 py-2 hover:bg-white sm:px-3">
-                    <span className="block text-[12px] leading-tight text-mute sm:text-[13px]">{CATEGORY_LABEL[p.category]}</span>
-                    {r && <span className="mt-0.5 block font-semibold tabular-nums sm:text-lg">{formatNaira(r.min)}</span>}
-                  </Link>
-                );
-              })}
-            </div>
           </div>
         )}
       </section>
 
-      {/* ---------- The range ---------- */}
+      {/* ---------- Our products ---------- */}
       <section className="border-t border-line py-16 sm:py-20">
         <div className="container-x">
           <div className="flex items-baseline justify-between gap-6">
-            <h2 className="display text-4xl sm:text-5xl">The range</h2>
+            <h2 className="display text-4xl sm:text-5xl">Our products</h2>
             <Link href="/shop" className="link text-[15px]">All products</Link>
           </div>
           <div className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
@@ -104,7 +94,7 @@ export default async function HomePage() {
             </p>
           </div>
           <div className="grid items-start gap-5 sm:grid-cols-3">
-            {shelf.filter((p) => p.ingredients).map((p) => (
+            {lineup.filter((p) => p.ingredients).map((p) => (
               <FoodLabel key={p.id} name={p.name} ingredients={p.ingredients!} highlights={p.highlights} />
             ))}
           </div>

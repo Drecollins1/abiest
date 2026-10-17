@@ -59,7 +59,7 @@ export function ProductForm({ product }: { product?: ProductFormValues }) {
         </div>
       </Card>
 
-      <Card title="Photos" description="The first photo is the cover. JPG, PNG or WebP, up to 5MB each. Transparent PNG/WebP packshots look best.">
+      <Card title="Photos" description="The first photo is the cover. JPG, PNG or WebP. New photos added in one save must total under 4MB, so add large photos one at a time. Transparent PNG/WebP packshots look best.">
         <div className="flex flex-wrap gap-4">
           {images.map((src, i) => (
             <div key={src} className="w-32">

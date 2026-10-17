@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { formatNaira } from "@/lib/money";
+import { NO_PHOTO } from "@/lib/site";
 import { useCart } from "./cart";
 
 type V = { id: string; label: string; priceKobo: number; stock: number; image: string | null };
@@ -21,7 +22,7 @@ export function BuyBox({ product, variants }: Props) {
 
   const v = variants.find((x) => x.id === vid);
   const gallery = Array.from(new Set([...(v?.image ? [v.image] : []), ...product.images]));
-  const main = gallery[Math.min(thumb, gallery.length - 1)] ?? "/products/chips-ripe.webp";
+  const main = gallery[Math.min(thumb, gallery.length - 1)] ?? NO_PHOTO;
   const out = !v || v.stock <= 0;
 
   function pick(id: string) {
@@ -43,7 +44,7 @@ export function BuyBox({ product, variants }: Props) {
     <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
       <div>
         <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-shelf">
-          <Image key={main} src={main} alt={`${product.name}${v ? `, ${v.label}` : ""}`} fill priority sizes="(min-width:1024px) 600px, 95vw" className="object-contain p-10" />
+          <Image key={main} src={main} alt={`${product.name}${v ? `, ${v.label}` : ""}`} fill priority sizes="(min-width:1024px) 600px, 95vw" className={`object-contain ${gallery.length ? "p-10" : "p-24 opacity-20"}`} />
         </div>
         {gallery.length > 1 && (
           <div className="mt-3 flex gap-3">
@@ -106,12 +107,6 @@ export function BuyBox({ product, variants }: Props) {
             </>
           )}
         </p>
-
-        <ul className="mt-6 divide-y divide-line border-y border-line text-[15px]">
-          <li className="flex justify-between gap-4 py-3"><span className="text-mute">Payment</span><span>On delivery or by transfer</span></li>
-          <li className="flex justify-between gap-4 py-3"><span className="text-mute">Delivery</span><span>Fee confirmed after you order</span></li>
-          <li className="flex justify-between gap-4 py-3"><span className="text-mute">Pickup</span><span>Ile-Ife or Osogbo</span></li>
-        </ul>
       </div>
     </div>
   );

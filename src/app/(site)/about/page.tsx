@@ -22,7 +22,7 @@ export default function AboutPage() {
           </div>
         </div>
         <div className="relative aspect-[4/5] w-full max-w-[420px] overflow-hidden rounded-lg bg-shelf lg:justify-self-end">
-          <Image src="/products/chips-unripe.webp" alt="ABI&EST unripe plantain chips" fill sizes="420px" className="object-contain p-10" />
+          <Image src="/products/chips-unripe-jar.webp" alt="ABI&EST unripe plantain chips" fill sizes="420px" className="object-contain p-10" />
         </div>
       </section>
 

@@ -176,7 +176,7 @@ export async function toggleProductActive(id: string) {
   if (!isValidObjectId(id)) return;
   await connectDB();
   // Flip the flag in a single update so two quick clicks can't race.
-  await ProductModel.updateOne({ _id: id }, [{ $set: { active: { $not: "$active" } } }]);
+  await ProductModel.updateOne({ _id: id }, [{ $set: { active: { $not: "$active" } } }], { updatePipeline: true });
   revalidatePath("/", "layout");
 }
 

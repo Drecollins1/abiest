@@ -10,8 +10,9 @@ export const revalidate = 60;
 const TABS: { key: string; label: string; cat?: Category }[] = [
   { key: "all", label: "Everything" },
   { key: "chips", label: "Plantain chips", cat: "CHIPS" },
-  { key: "flour", label: "Plantain flour", cat: "FLOUR" },
-  { key: "beans", label: "Honey beans", cat: "BEANS" },
+  // Plantain flour and honey beans are hidden until they have photos; add their tabs back then:
+  // { key: "flour", label: "Plantain flour", cat: "FLOUR" },
+  // { key: "beans", label: "Honey beans", cat: "BEANS" },
 ];
 
 export default async function ShopPage({ searchParams }: { searchParams: Promise<{ c?: string }> }) {

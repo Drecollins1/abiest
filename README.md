@@ -32,7 +32,7 @@ Dashboard: http://localhost:3000/dashboard (sign in with ADMIN_EMAIL / ADMIN_PAS
 - Money is stored in kobo. The dashboard takes naira.
 - Checkout re-prices from the database, checks stock and decrements it. Cancelling an order in the dashboard returns the stock.
 - Payment is pay-on-delivery / transfer, confirmed on WhatsApp. Paystack can be added in `placeOrder`.
-- Uploaded photos go to `public/uploads` (`src/lib/storage.ts`). Works on a VPS / Docker volume; swap for S3 or Cloudinary on serverless hosting.
+- Uploaded photos are stored in MongoDB (GridFS bucket `images`) and served from `/api/images/...` (`src/lib/storage.ts`), so uploads work on Vercel. Vercel caps a request at 4.5MB, so each save can carry about 4MB of new photos.
 - Checkout takes stock with atomic conditional updates (no multi-document transactions), so a plain standalone MongoDB works; no replica set needed.
 
 ## Before launch

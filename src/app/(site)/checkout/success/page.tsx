@@ -23,7 +23,7 @@ export default async function SuccessPage({ searchParams }: { searchParams: Prom
       <p className="text-sm font-semibold text-leaf">Order {order.reference}</p>
       <h1 className="display mt-3 text-5xl sm:text-6xl">Thank you, {order.customerName.split(" ")[0]}.</h1>
       <p className="mt-5 text-lg leading-relaxed text-mute">
-        We’ve got your order. We’ll contact you on {order.phone} to confirm {order.fulfilment === "DELIVERY" ? "delivery" : "pickup"} and payment. For a faster reply, send us the order number on WhatsApp.
+        We’ve got your order. We’ll contact you on {order.phone} to confirm delivery and payment. For a faster reply, send us the order number on WhatsApp.
       </p>
       <div className="mt-8 flex flex-wrap gap-3">
         <a href={whatsappLink(message)} className="btn-leaf" target="_blank" rel="noreferrer">Send on WhatsApp</a>

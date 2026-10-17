@@ -10,7 +10,6 @@ import { placeOrder } from "@/lib/actions/orders";
 export function CheckoutForm() {
   const { lines, subtotalKobo, clear, ready } = useCart();
   const router = useRouter();
-  const [fulfilment, setFulfilment] = useState<"DELIVERY" | "PICKUP">("DELIVERY");
   const [error, setError] = useState<string | null>(null);
   const [pending, start] = useTransition();
 
@@ -33,7 +32,7 @@ export function CheckoutForm() {
         customerName: s("name"),
         phone: s("phone"),
         email: s("email"),
-        fulfilment,
+        fulfilment: "DELIVERY", // delivery only; no pickup points
         address: s("address"),
         city: s("city"),
         state: s("state"),
@@ -65,35 +64,22 @@ export function CheckoutForm() {
         </fieldset>
 
         <fieldset>
-          <legend className="display mb-4 text-3xl">Delivery or pickup</legend>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {([
-              ["DELIVERY", "Deliver to me", "We confirm the delivery fee with you."],
-              ["PICKUP", "I’ll pick it up", "From our Ile-Ife or Osogbo location."],
-            ] as const).map(([val, title, sub]) => (
-              <label key={val} className={`cursor-pointer rounded-md border p-4 ${fulfilment === val ? "border-leaf bg-leaf/[.06] ring-1 ring-leaf" : "border-line bg-card hover:border-ink/40"}`}>
-                <input type="radio" name="fulfilment" value={val} checked={fulfilment === val} onChange={() => setFulfilment(val)} className="sr-only" />
-                <span className="block font-semibold">{title}</span>
-                <span className="mt-1 block text-sm text-mute">{sub}</span>
-              </label>
-            ))}
-          </div>
-          {fulfilment === "DELIVERY" && (
-            <div className="mt-5 grid gap-5 sm:grid-cols-2">
-              <div className="sm:col-span-2">
-                <label className="label" htmlFor="address">Street address</label>
-                <input id="address" name="address" className="field" autoComplete="street-address" required />
-              </div>
-              <div>
-                <label className="label" htmlFor="city">City / town</label>
-                <input id="city" name="city" className="field" autoComplete="address-level2" required />
-              </div>
-              <div>
-                <label className="label" htmlFor="state">State</label>
-                <input id="state" name="state" className="field" autoComplete="address-level1" defaultValue="Osun" />
-              </div>
+          <legend className="display mb-1 text-3xl">Delivery address</legend>
+          <p className="mb-5 text-sm text-mute">We confirm the delivery fee with you before you pay.</p>
+          <div className="grid gap-5 sm:grid-cols-2">
+            <div className="sm:col-span-2">
+              <label className="label" htmlFor="address">Street address</label>
+              <input id="address" name="address" className="field" autoComplete="street-address" required />
             </div>
-          )}
+            <div>
+              <label className="label" htmlFor="city">City / town</label>
+              <input id="city" name="city" className="field" autoComplete="address-level2" required />
+            </div>
+            <div>
+              <label className="label" htmlFor="state">State / region</label>
+              <input id="state" name="state" className="field" autoComplete="address-level1" />
+            </div>
+          </div>
           <div className="mt-5">
             <label className="label" htmlFor="note">Anything we should know? <span className="font-normal text-mute">(optional)</span></label>
             <textarea id="note" name="note" rows={3} className="field" />

@@ -12,13 +12,13 @@ const OFFERS = [
   {
     title: "Parties & events",
     body: "Souvenir packs of plantain chips for weddings, birthdays, naming ceremonies, burials and church programmes. Ripe, unripe or a mix, packed and sealed so they travel well.",
-    image: "/products/chips-ripe.webp",
+    image: "/products/chips-ripe-pouch.webp",
     examples: ["Weddings", "Birthdays", "Naming ceremonies", "Burials", "Church programmes"],
   },
   {
     title: "Stores & organisations",
     body: "Regular supply for supermarkets, distributors, offices, schools and hostels. Chips by the carton, plantain flour and honey beans in 1kg and 2kg bags.",
-    image: "/products/plantain-flour-2kg.webp",
+    image: "/products/chips-unripe-jar.webp",
     examples: ["Supermarkets", "Distributors", "Offices", "Schools", "Hostels"],
   },
 ];

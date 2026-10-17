@@ -20,6 +20,9 @@ export const site = {
   ],
 } as const;
 
+/** Shown in place of a product photo until one is uploaded. */
+export const NO_PHOTO = "/brand/abiest-mark-green.svg";
+
 export const whatsappLink = (text: string) =>
   `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
 
