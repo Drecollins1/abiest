@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LogoCompact } from "./logo";
 import { useCart } from "./cart";
-import { site } from "@/lib/site";
 
 const NAV = [
   { href: "/", label: "Home" },
@@ -25,13 +24,6 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur supports-[backdrop-filter]:bg-paper/85">
-      <div className="bg-canopy text-[13px] text-white/80">
-        <div className="container-x flex h-9 items-center justify-between gap-4">
-          <p className="truncate">Pay on delivery or transfer · Pickup in Ile-Ife and Osogbo</p>
-          <a href={site.phoneHref} className="hidden shrink-0 hover:text-white sm:block">Call {site.phone}</a>
-        </div>
-      </div>
-
       <div className="container-x flex h-16 items-center justify-between gap-6">
         <Link href="/" className="shrink-0 text-leaf" aria-label="ABIEST home">
           <LogoCompact className="h-10 w-auto" />

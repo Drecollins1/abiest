@@ -62,7 +62,7 @@ export default async function ProductPage({ params }: Params) {
           </div>
           {product.ingredients && (
             <FoodLabel
-              className="h-fit lg:sticky lg:top-32"
+              className="h-fit lg:sticky lg:top-24"
               name={product.name}
               ingredients={product.ingredients}
               highlights={product.highlights}

@@ -75,7 +75,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section id="quote" className="scroll-mt-28 border-t border-line">
+      <section id="quote" className="scroll-mt-20 border-t border-line">
         <div className="container-x grid gap-10 py-14 lg:grid-cols-[1fr_1.6fr] lg:gap-16">
           <div>
             <h2 className="display text-3xl sm:text-4xl">Get a quote</h2>

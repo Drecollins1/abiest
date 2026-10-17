@@ -87,7 +87,7 @@ export function CheckoutForm() {
         </fieldset>
       </div>
 
-      <aside className="h-fit rounded-lg border border-line bg-card p-6 lg:sticky lg:top-32">
+      <aside className="h-fit rounded-lg border border-line bg-card p-6 lg:sticky lg:top-24">
         <h2 className="display text-2xl">Order summary</h2>
         <ul className="mt-4 space-y-3 text-[15px]">
           {lines.map((l) => (
